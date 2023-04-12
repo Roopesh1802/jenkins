@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         dockerImage = ''
-        registry = ''
+        registry = 'roopesh81022/pythonapp'
     }
      stages {
         stage('checkout') {
