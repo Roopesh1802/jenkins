@@ -1,0 +1,29 @@
+pipeline { 
+    agent any
+    environment {
+        dockerImage = ''
+        registry = ''
+    }
+     stages {
+        stage('checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopesh1802/jenkins']])
+            }
+        }
+         stage('Build Docker Image') {
+             steps { 
+                script{
+                    dockerImage = docker.build registry
+                }
+                }
+            }
+        }
+         post { 
+            success { 
+                echo "Build is successfull" 
+            } 
+            failure { 
+                echo "Build failed" 
+            }
+        }
+    }
