@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         dockerImage = ''
-        registry = 'roopesh81022/mypythonapp'
+        Docker_Credential =credential('dockerhubcredential')
     }
      stages {
         stage('checkout') {
@@ -10,13 +10,20 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopesh1802/jenkins']])
             }
         }
-         stage('Build Docker Image') {
-             steps { 
-                script{
-                    dockerImage = docker.build registry
-                }
+        stage('Build Docker Image') {
+            steps { 
+                sh 'docker build -t Newimage'
                 }
             }
+        stage('login to dockerhub'){
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+
+        stage('push image'){
+            steps{
+                sh 'docker push Newimage '
+            }
+        }
         }
          post { 
             success { 
