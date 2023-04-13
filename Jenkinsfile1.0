@@ -1,7 +1,6 @@
 pipeline { 
     agent any
     environment {
-        dockerImage = ''
         Docker_Credential =credentials('roopesh81022')
     }
      stages {
@@ -15,7 +14,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps { 
-                sh 'docker build .'
+                sh 'docker build -t image .'
                 }
             }
         stage('login to dockerhub'){
@@ -26,7 +25,7 @@ pipeline {
 
         stage('push image'){
             steps{
-                sh 'docker push Newimage '
+                sh 'docker push image '
             }
         }
         }
