@@ -1,7 +1,7 @@
 #getting a base image
 FROM alpine
 
-RUN apk add - update redis
+RUN apk add --update redis
 
 EXPOSE 4000
 
