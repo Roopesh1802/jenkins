@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         dockerImage = ''
-        Docker_Credential =credentials('roopesh81022')
+        Docker_Credential = credentials('roopesh81022')
     }
      stages {
         stage('checkout') {
@@ -14,22 +14,22 @@ pipeline {
 
         }
         stage('Build Docker Image') {
-            step { 
+            steps { 
                 sh 'docker build -t Newimage .'
                 }
             }
         stage('login to dockerhub'){
-            step {
+            steps {
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
 
         stage('push image'){
-            step {
+            steps {
                 sh 'docker push Newimage '
             }
         }
-        }
+    }
          post { 
             success { 
                 echo "Build is successfull" 
