@@ -1,7 +1,7 @@
 pipeline { 
     agent any
     environment {
-        Docker_Credential =credentials('roopesh81022')
+        Docker_Credential = credentials('roopesh81022')
     }
      stages {
         stage('checkout') {
