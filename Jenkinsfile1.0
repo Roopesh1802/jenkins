@@ -1,11 +1,12 @@
 pipeline { 
     agent any
     environment {
-        Docker_Credential = credentials('roopesh81022')
+        dockerImage = ''
+        Docker_Credential =credentials('roopesh81022')
     }
      stages {
         stage('checkout') {
-            steps {
+            steps{
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopesh1802/jenkins']])
                 
             }
@@ -13,19 +14,19 @@ pipeline {
 
         }
         stage('Build Docker Image') {
-            steps { 
-                sh 'docker build -t image .'
+            step { 
+                sh 'docker build -t Newimage .'
                 }
             }
         stage('login to dockerhub'){
-            
+            step {
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            
+            }
         }
 
         stage('push image'){
-            steps{
-                sh 'docker push image '
+            step {
+                sh 'docker push Newimage '
             }
         }
         }
