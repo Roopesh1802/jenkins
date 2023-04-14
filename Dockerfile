@@ -1,6 +1,8 @@
 #getting a base image
-FROM ubuntu
+FROM alpine
 
-RUN apt-get update
+RUN apk add - update redis
 
-CMD ["echo", "hello"]
+EXPOSE 4000
+
+CMD ["redis-server"]
