@@ -1,12 +1,12 @@
 pipeline { 
     agent any
     environment {
-        Docker_Credential = credentials('docker_id')
+        DOCKERHUB_CREDENTIALS = credentials('docker_id')
     }
      stages {
         stage('Build Docker Image') {
             steps { 
-                sh 'docker build -t Newimage/alpine:latest .'
+                sh 'docker build -t newimage/alpine:latest .'
                 }
             }
         stage('login to dockerhub'){
@@ -17,7 +17,7 @@ pipeline {
 
         stage('push image'){
             steps {
-                sh 'docker push Newimage/alpine:latest '
+                sh 'docker push newimage/alpine:latest '
             }
         }
     }
