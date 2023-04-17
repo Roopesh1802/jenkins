@@ -1,13 +1,12 @@
 pipeline { 
     agent any
     environment {
-        dockerImage = ''
-        Docker_Credential = credentials('roopesh81022')
+        Docker_Credential = credentials('docker_id')
     }
      stages {
         stage('Build Docker Image') {
             steps { 
-                sh 'docker build -t Newimage .'
+                sh 'docker build -t Newimage/alpine:latest .'
                 }
             }
         stage('login to dockerhub'){
@@ -18,9 +17,16 @@ pipeline {
 
         stage('push image'){
             steps {
-                sh 'docker push Newimage '
+                sh 'docker push Newimage/alpine:latest '
             }
         }
     }
-        
+         post { 
+            success { 
+                echo "Build is successfull" 
+            } 
+            failure { 
+                echo "Build failed" 
+            }
+        }
     }
