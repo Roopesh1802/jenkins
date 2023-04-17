@@ -5,14 +5,6 @@ pipeline {
         Docker_Credential = credentials('roopesh81022')
     }
      stages {
-        stage('checkout') {
-            steps{
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopesh1802/jenkins']])
-                
-            }
-
-
-        }
         stage('Build Docker Image') {
             steps { 
                 sh 'docker build -t Newimage .'
