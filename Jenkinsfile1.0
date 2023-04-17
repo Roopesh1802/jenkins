@@ -22,12 +22,5 @@ pipeline {
             }
         }
     }
-         post { 
-            success { 
-                echo "Build is successfull" 
-            } 
-            failure { 
-                echo "Build failed" 
-            }
-        }
+        
     }
