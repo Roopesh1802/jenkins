@@ -4,6 +4,11 @@ pipeline {
         Docker_Credentials = credentials('docker-hub')
     }
      stages {
+        stage('checkout') {
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopesh1802/jenkins']])
+                
+            }
         stage('Build Docker Image') {
             steps { 
                 sh 'docker build -t newimage .'
@@ -11,7 +16,7 @@ pipeline {
             }
         stage('login to dockerhub'){
             steps {
-            sh 'echo docker login'
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
 
