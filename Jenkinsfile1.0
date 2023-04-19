@@ -5,22 +5,22 @@ pipeline {
     }
      stages {
         stage('Build Docker Image') {
-            step { 
-                sh 'docker build -t Newimage .'
+            steps { 
+                sh 'docker build -t newimage .'
                 }
             }
         stage('login to dockerhub'){
-            step {
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            steps {
+            sh 'echo docker login'
             }
         }
 
         stage('push image'){
-            step {
-                sh 'docker push Newimage '
+            steps {
+                sh 'docker push newimage'
             }
         }
-        }
+    }
          post { 
             success { 
                 echo "Build is successfull" 
