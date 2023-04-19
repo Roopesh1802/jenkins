@@ -1,26 +1,26 @@
 pipeline { 
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker_id')
+        Docker_Credentials = credentials('docker-hub')
     }
      stages {
         stage('Build Docker Image') {
-            steps { 
-                sh 'docker build -t newimage/alpine:latest .'
+            step { 
+                sh 'docker build -t Newimage .'
                 }
             }
         stage('login to dockerhub'){
-            steps {
-            sh 'echo docker login'
+            step {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
 
         stage('push image'){
-            steps {
-                sh 'docker push newimage/alpine:latest'
+            step {
+                sh 'docker push Newimage '
             }
         }
-    }
+        }
          post { 
             success { 
                 echo "Build is successfull" 
