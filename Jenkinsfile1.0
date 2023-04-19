@@ -11,13 +11,13 @@ pipeline {
             }
         stage('login to dockerhub'){
             steps {
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR -p --password-stdin'
+            sh 'echo docker login'
             }
         }
 
         stage('push image'){
             steps {
-                sh 'docker push newimage/alpine:latest '
+                sh 'docker push newimage/alpine:latest'
             }
         }
     }
