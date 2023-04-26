@@ -11,13 +11,13 @@ pipeline {
             }
         stage('login to dockerhub'){
             steps {
-            sh 'echo docker login'
+            sh 'docker login -u Roopesh81022 -p Roopesh@123'
             }
         }
 
         stage('push image'){
             steps {
-                sh 'echo docker push newimage:1.0'
+                sh 'docker push newimage:1.0'
             }
         }
     }
